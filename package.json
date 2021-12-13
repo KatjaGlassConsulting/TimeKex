@@ -14,7 +14,12 @@
         "@testing-library/user-event": "^12.1.10",
         "react-scripts": "4.0.3"
     },
+    "resolutions": {
+        "immer": "9.0.7",
+        "glob-parent": "6.0.2"
+    },
     "scripts": {
+        "preinstall": "npx npm-force-resolutions",
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
