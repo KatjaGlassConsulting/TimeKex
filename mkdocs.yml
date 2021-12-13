@@ -8,8 +8,8 @@ copyright: Copyright &copy; 2021 Katja Glaß
 
 nav:
   - Home: index.md
-  - Test:
-    - ./test/dummy.html
+  - Live Demo:
+    - ./app/index.html
 
 # Style Sheet
 extra_css:
