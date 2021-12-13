@@ -1,0 +1,44 @@
+# Project information
+site_name: TimeKex - TimeTracking, Kimai meets Excel
+site_author: Katja Glaß
+site_description: TimeTracking application using Kimai API to enable Excel import
+
+# Copyright
+copyright: Copyright &copy; 2021 Katja Glaß
+
+nav:
+  - Home: index.md
+  - Test:
+    - ./test/dummy.html
+
+# Style Sheet
+extra_css:
+  - stylesheets/general.css
+
+# Repository
+repo_name: TimeKex
+repo_url: https://github.com/KatjaGlassConsulting/TimeKex
+
+# Configuration
+theme:
+  name: material
+
+  features:
+    #- navigation.instant
+    #- navigation.sections
+    - navigation.tabs
+    - navigation.indexes
+  favicon: img/favicon.png
+  icon:
+    logo: logo
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.snippets:
+      base_path: .
