@@ -31,6 +31,19 @@ class Info extends React.Component {
                                     To checkout demo users and specifically the API password of a demo user, check the <a href="https://www.kimai.org/demo/" 
                                     target="_blank" rel="noreferrer">demo information page</a>.
                                 </p>
+                                <b>TimeKex:</b>
+                                <p>TimeKex is an open-source tool using the MIT licenses. The source code is available in GitHub: <a href="https://github.com/KatjaGlassConsulting/TimeKex" 
+                                    target="_blank" rel="noreferrer">https://github.com/KatjaGlassConsulting/TimeKex</a>. Addional documentation and a demonstration instance is available 
+                                    on GitHub Pages: <a href="https://katjaglassconsulting.github.io/TimeKex/" 
+                                    target="_blank" rel="noreferrer">https://katjaglassconsulting.github.io/TimeKex/</a>.
+                                </p>
+                                <b>Third Party Software:</b>
+                                <p>Please check the <a href="https://github.com/KatjaGlassConsulting/TimeKex/blob/main/package.json" 
+                                    target="_blank" rel="noreferrer">package.json</a> for detailed information which packages are used. Addional 
+                                    a <a href="https://github.com/KatjaGlassConsulting/TimeKex/blob/main/third-party-licenses.txt" 
+                                    target="_blank" rel="noreferrer">third party license file</a> is included in the
+                                    repository to show which third-party-software might be used by this project.
+                                </p>
                             </div>
                         </Grid.Row>
                     </Grid>
