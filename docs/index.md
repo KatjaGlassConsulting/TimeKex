@@ -12,15 +12,11 @@ This WebApplication is designed to allow the tracking of working hours in Excel 
 
 <a href="https://www.kimai.org/" target="_blank">Kimai</a> is an open-source free time-tracking application which comes with a lot of functionality and capabilities. There might be situations where the times should be tracked in Excel and finally be uploaded to Kimai. TimeKex is designed to support this process.
 
+![Screenshot of login screen](./img/timesheet_to_kimai_01.gif)
+
 ## Status
 
-This repository is under development. The first release is planned for Q1-2022. In this repository the source code and documentation for TimeKex will be made available.
+TimeKex is available in the current version which does not contain tests. The source code is available under the MIT license which allows a flexible and generic usage and modifications without warrenty.
 
-![Under Construction image](./img/under_constructions.png)
-
-## Prerequisites:
-
-To be able to run TimeKex, a running instance of Kimai is required together with a user and an API key of this user. The API password can be set in Kimai via "profile", "API" and then "API Password".
-
-There is a stable demonstration version available for Kimai which can be used for demonstration purposes (<a href="https://demo-stable.kimai.org/de/login" target="_blank">linked here</a>). To checkout demo users and specifically the API password of a demo user, check the <a href="https://www.kimai.org/demo/" target="_blank">demo information page</a>.
+The demonstration is running on the stable Kimai demo instance. Be aware that this demo instances is regularily rebuild.
 

@@ -1,23 +1,28 @@
 {
-    "name": "react-template",
+    "name": "timekex",
     "version": "0.1.0",
     "private": true,
     "homepage": ".",
+    "license": "MIT",
     "dependencies": {
+        "@reduxjs/toolkit": "^1.7.1",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
-        "web-vitals": "^1.0.1"
+        "react-redux": "^7.2.4",
+        "react-router-dom": "^5.2.0",
+        "read-excel-file": "^5.2.26",
+        "semantic-ui-css": "^2.4.1",
+        "semantic-ui-react": "^2.0.3",
+        "typescript": "^4.5.4"
     },
     "devDependencies": {
-        "@testing-library/jest-dom": "^5.11.4",
-        "@testing-library/react": "^11.1.0",
-        "@testing-library/user-event": "^12.1.10",
         "react-scripts": "4.0.3"
     },
     "resolutions": {
-        "immer": "9.0.7",
+        "immer": "9.0.12",
         "glob-parent": "6.0.2",
-        "nth-check": "2.0.1"
+        "nth-check": "2.0.1",
+        "sevmer": "7.3.5"
     },
     "scripts": {
         "preinstall": "npx npm-force-resolutions",
