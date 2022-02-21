@@ -2,13 +2,17 @@
 
 This WebApplication is designed to allow the tracking of working hours in Excel which can then be uploaded to the Kimai Timetracking application.
 
-[Kimai](https://www.kimai.org/){:target="_blank"} is an open-source free time-tracking application which comes with a lot of functionality and capabilities. There might be situations where the times should be tracked in Excel and finally be uploaded to Kimai. TimeKex is designed to support this process.
+![Screenshot of login screen](./docs/img/timesheet_to_kimai_01.gif)
+
+[Kimai](https://www.kimai.org/) is an open-source free time-tracking application which comes with a lot of functionality and capabilities. There might be situations where the times should be tracked in Excel and finally be uploaded to Kimai. TimeKex is designed to support this process.
+
+The documentation of TimeKex as well as a running demonstration instance is accessible [here](https://katjaglassconsulting.github.io/TimeKex/).
 
 ## Status
 
-This repository is under development. The first release is planned for Q1-2022. In this repository the source code and documentation for TimeKex will be made available.
+TimeKex is available in the current version which does not contain tests. The source code is available under the MIT license which allows a flexible and generic usage and modifications without warrenty.
 
-![Under Construction image](./docs/img/under_constructions.png)
+The demonstration is running on the stable Kimai demo instance. Be aware that this demo instances is regularily rebuild.
 
 ## License
 
@@ -22,7 +26,7 @@ The content files like documentation are released under [CC-BY-4.0](https://crea
 
 ## Contribution
 
-Contributions are very welcome. Be aware that your contribution is under the above licenses. If you would like to contribute for tests, please do so using Cypress.
+Contributions are very welcome. Be aware that your contribution is under the above licenses. If you would like to contribute for tests, I would recommend Cypress which is my personal preference. 
 
 ## Re-use
 

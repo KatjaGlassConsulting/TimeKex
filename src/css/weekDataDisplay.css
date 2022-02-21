@@ -1,0 +1,31 @@
+.cellOuterComment {
+    position: relative;
+}
+
+.cellComment {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    border: 1px;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    padding: 3px;
+    color: black;
+    top: 20px;
+    left: 20px;
+    width: 400px;
+}
+
+.cellOuterComment:hover span.cellComment {
+    display: block;
+}
+
+.lightGrey {
+    color:lightgray;
+}
+
+.orange {
+    background-color: rgb(255, 245, 227);
+}

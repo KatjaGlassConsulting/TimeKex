@@ -8,6 +8,10 @@ copyright: Copyright &copy; 2021 Katja Glaß
 
 nav:
   - Home: index.md
+  - Documentation: 
+    - User Panel: userGuide.md
+    - Admin Panel: adminGuide.md
+    - Setup: setup.md
   - Live Demo:
     - ./app/index.html
 
@@ -42,3 +46,4 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.snippets:
       base_path: .
+  - attr_list
