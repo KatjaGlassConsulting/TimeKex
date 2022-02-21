@@ -18,7 +18,7 @@
     
     
       
-        <title>Setup - TimeKex - TimeTracking, Kimai meets Excel</title>
+        <title>Admin Panel - TimeKex - TimeTracking, Kimai meets Excel</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#setup" class="md-skip">
+        <a href="#admin-panel" class="md-skip">
           Skip to content
         </a>
       
@@ -101,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Setup
+              Admin Panel
             
           </span>
         </div>
@@ -320,18 +320,6 @@
             
   
   
-  
-    <li class="md-nav__item">
-      <a href="../adminGuide/" class="md-nav__link">
-        Admin Panel
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
     
   
   
@@ -343,12 +331,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Setup
+          Admin Panel
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Setup
+        Admin Panel
       </a>
       
         
@@ -365,36 +353,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    Prerequisites
+  <a href="#excel-file" class="md-nav__link">
+    Excel File
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#local-development-and-compilation" class="md-nav__link">
-    Local Development and Compilation
+  <a href="#create-db-data" class="md-nav__link">
+    Create DB Data
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#deployment" class="md-nav__link">
-    Deployment
+  <a href="#db-data-creation-successful" class="md-nav__link">
+    DB Data creation successful
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuration" class="md-nav__link">
-    Configuration
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#excel-structure-timesheets" class="md-nav__link">
-    Excel Structure Timesheets
+  <a href="#check-back-in-kimai" class="md-nav__link">
+    Check back in Kimai
   </a>
   
 </li>
@@ -403,6 +384,18 @@
   
 </nav>
       
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup/" class="md-nav__link">
+        Setup
+      </a>
     </li>
   
 
@@ -480,36 +473,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    Prerequisites
+  <a href="#excel-file" class="md-nav__link">
+    Excel File
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#local-development-and-compilation" class="md-nav__link">
-    Local Development and Compilation
+  <a href="#create-db-data" class="md-nav__link">
+    Create DB Data
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#deployment" class="md-nav__link">
-    Deployment
+  <a href="#db-data-creation-successful" class="md-nav__link">
+    DB Data creation successful
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuration" class="md-nav__link">
-    Configuration
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#excel-structure-timesheets" class="md-nav__link">
-    Excel Structure Timesheets
+  <a href="#check-back-in-kimai" class="md-nav__link">
+    Check back in Kimai
   </a>
   
 </li>
@@ -526,75 +512,30 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/KatjaGlassConsulting/TimeKex/edit/master/docs/setup.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/KatjaGlassConsulting/TimeKex/edit/master/docs/adminGuide.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h1>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<p>To be able to run TimeKex, a running instance of Kimai is required together with a user and an API key of this user. The API password can be set in Kimai via "profile", "API" and then "API Password".</p>
-<p>There is a stable demonstration version available for Kimai which can be used for demonstration purposes (<a href="https://demo-stable.kimai.org/de/login" target="_blank">linked here</a>). To checkout demo users and specifically the API password of a demo user, check the <a href="https://www.kimai.org/demo/" target="_blank">demo information page</a>.</p>
-<h2 id="local-development-and-compilation">Local Development and Compilation<a class="headerlink" href="#local-development-and-compilation" title="Permanent link">&para;</a></h2>
-<p>TimeKex is a ReactJS Web Application. To run a local development version, you can use NPM to install all dependencies and start or build the app. </p>
-<ol>
-<li>Make sure to have <a href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm">NPM installed</a></li>
-<li>Download/clone this repository to a folder <code>&lt;folder&gt;</code></li>
-<li>Open the command line, go to that folder (cd <code>&lt;folder&gt;</code>)</li>
-<li>Install packages using <code>npm install</code></li>
-<li>Start the development server with <code>npm start</code></li>
-<li>Build the app via <code>npm run build</code></li>
-</ol>
-<h2 id="deployment">Deployment<a class="headerlink" href="#deployment" title="Permanent link">&para;</a></h2>
-<p>The TimeKex web application is a simple static HTML fileset which can run locally or on any Webserver. When you have build the app, it can simply be started by opening "index.html".</p>
-<p>The final build folder contains next to the config.js also additional example configurations files which you might want to try. Just copy the content as config.js to apply the corresponding configuration. The current configuration files are using the Kimai demonstration server and users.</p>
-<p><img alt="Folder Structure" src="../img/folder_structure_build.png" /></p>
-<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<p>There are some configurations possible which are set through a <code>config.json</code> file in the root folder of the application. Possible settings are explained here.</p>
-<div class="highlight"><pre><span></span><code><span class="err">var</span> <span class="err">co</span><span class="kc">nf</span><span class="err">ig</span> <span class="err">=</span> <span class="p">{</span>
-    <span class="nt">&quot;kimaiAPI&quot;</span> <span class="p">:</span> <span class="s2">&quot;https://XXX/api/&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;ignoreActivities&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Vacation&quot;</span><span class="p">,</span><span class="s2">&quot;Public Holiday&quot;</span><span class="p">],</span>
-    <span class="nt">&quot;adminUser&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;anna_admin&quot;</span><span class="p">,</span><span class="s2">&quot;susan_super&quot;</span><span class="p">],</span>    
-    <span class="nt">&quot;username&quot;</span> <span class="p">:</span> <span class="s2">&quot;john_user&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;password&quot;</span> <span class="p">:</span> <span class="s2">&quot;XXX&quot;</span>
-<span class="p">}</span>
+                <h1 id="admin-panel">Admin Panel<a class="headerlink" href="#admin-panel" title="Permanent link">&para;</a></h1>
+<p>Via the Admin Panel it is possible to create Customer, Projects and Activities via an Excel file. If you need to import Customer and Projects together with a lot of other fields, I recommend to use the Kimai command line functionality as in the <a href="https://www.kimai.org/documentation/imports.html" target="_blank">documentation</a>. For a quick creation, e.g. for test data, this API based approach can be used.</p>
+<h2 id="excel-file">Excel File<a class="headerlink" href="#excel-file" title="Permanent link">&para;</a></h2>
+<p>Customer, Projects and Activities can automatically be created through an Excel file. An example file is available under "./exampleFiles/TimeKex_createData.xlsx"</p>
+<p><img alt="Example Excel File" src="../img/example_admin_create_00.png" /></p>
+<h2 id="create-db-data">Create DB Data<a class="headerlink" href="#create-db-data" title="Permanent link">&para;</a></h2>
+<p>To actually create the Customer, Projects and Activities, the "Admin" panel can be used. Depending on the configuration, this panel might not be visible for the currently logged in user.</p>
+<p>When the "adminUser" configration is set, then only these users mentioned there will have the "Admin" panel available. If the config does not contain any user, the Admin panel is visible for all.</p>
+<div class="highlight"><pre><span></span><code>    &quot;adminUser&quot; : [&quot;anna_admin&quot;,&quot;susan_super&quot;]
 </code></pre></div>
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>kimaiAPI</td>
-<td>Yes</td>
-<td>URL to the Kimai API - example above is from the demo instance from kimai.org</td>
-</tr>
-<tr>
-<td>ignoreActivities</td>
-<td>No</td>
-<td>Activities which should be ignored (not copied to Kimai, not deleted when available) can be included as Array-List</td>
-</tr>
-<tr>
-<td>adminUser</td>
-<td>No</td>
-<td>The <code>admin</code> tab of the app is only displayed when the logged in user is in this list. When this item is not available, the corresponding tab is visible for everyone.</td>
-</tr>
-<tr>
-<td>username and password</td>
-<td>No</td>
-<td>When this is provided through the config, then there is no <code>Login</code> screen. This is only recommended for development purposes or when this application is run just locally by one person.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="excel-structure-timesheets">Excel Structure Timesheets<a class="headerlink" href="#excel-structure-timesheets" title="Permanent link">&para;</a></h2>
-<p><img alt="Excel Sheet Structure" src="../img/layout_excel_sheet.png" /></p>
-<p>The Excel file is expected in a specific format. When the Excel file should contain a different structure, for example different column names, this can be changed by a source code updated and re-compiling the app. The file <code>src/features/excelImport/ExcelSchema</code> is responsible to read in and map the corresponding Excel file to the specific object required for the application. Feel free to update the column names from the Excel file.</p>
-<p>The package <a href="https://gitlab.com/catamphetamine/read-excel-file">read-excel-file</a> is used to read in the Excel file and use the corresponding schema for mapping. Please look into the package details to apply a different schema.</p>
-<p>For the Excel file it is very important that the first sheet contains the time data and that the first row starts with the column names. There can be additional sheets and additional columns in the Excel file. The column order is also not relevant. Example file is available under "./exampleFiles"</p>
+<p>By clicking "Create DB Data" the excel file with the specific structure can be selected to create the corresponding entries.</p>
+<p><img alt="Screenshot to perform &quot;Create DB Data&quot;" src="../img/example_admin_create_01.png" /></p>
+<h2 id="db-data-creation-successful">DB Data creation successful<a class="headerlink" href="#db-data-creation-successful" title="Permanent link">&para;</a></h2>
+<p>After loading the Excel file, the Customers, Projects and Activities are created via the Kimai API. The success messages can be reviewed on the screen.</p>
+<p><img alt="Screenshot of status messages" src="../img/example_admin_create_02.png" /></p>
+<p><strong>Issues:</strong> When something should be created which already exists, it is not created. Other issues could be available, e.g. the user does not have admin access. This will be printed. Also when a project cannot be created, for example as no customer had been provided, an issue message will appear.</p>
+<h2 id="check-back-in-kimai">Check back in Kimai<a class="headerlink" href="#check-back-in-kimai" title="Permanent link">&para;</a></h2>
+<p>You can log into Kimai to see that these projects, customers and activities has been created.</p>
+<p><img alt="Screenshot of Kimai created activities" src="../img/example_admin_create_03.png" /></p>
                 
               
               
@@ -612,7 +553,7 @@
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
-        <a href="../adminGuide/" class="md-footer__link md-footer__link--prev" rel="prev">
+        <a href="../userGuide/" class="md-footer__link md-footer__link--prev" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -621,19 +562,19 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Admin Panel
+              User Panel
             </div>
           </div>
         </a>
       
       
-        <a href="../app/" class="md-footer__link md-footer__link--next" rel="next">
+        <a href="../setup/" class="md-footer__link md-footer__link--next" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              None
+              Setup
             </div>
           </div>
           <div class="md-footer__button md-icon">
