@@ -15,7 +15,7 @@ const initialState = kimaiDBAdapter.getInitialState({
 })
 
 export const fetchAllTimesheets = createAsyncThunk('kimaiTimesheets/fetchAllTimesheets', async (config) => {
-    const response = await kimaiClient('timesheets?user=' + config.userId + '&orderBy=begin&order=ASC', config);    
+    const response = await kimaiClient('timesheets?user=' + config.userId + '&orderBy=begin&order=DESC&size=1000', config);    
     if (response.code && response.code !== 200) {
         const customError = {
             ...response,

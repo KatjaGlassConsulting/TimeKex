@@ -104,6 +104,8 @@ export const WeekDataDisplay = ({ dispatch }) => {
             end: item.end.substring(11, 16),
             project: kimaiData.projects[item.project].name,
             projectId: item.project,
+            customer: kimaiData.projects[item.project].customer.name,
+            customerId: kimaiData.projects[item.project].customer.id,
             activity: kimaiData.activities[item.activity].name,
             activityId: item.activity,
             description: item.description ? item.description : "",
@@ -116,6 +118,7 @@ export const WeekDataDisplay = ({ dispatch }) => {
             if (!excelItem.timesheetId &&
                 excelItem.date === entry.date &&
                 excelItem.start === entry.start &&
+                excelItem.end === entry.end &&
                 excelItem.project === entry.project &&
                 excelItem.activity === entry.activity &&
                 excelItem.description === entry.description &&
