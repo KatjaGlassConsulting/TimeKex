@@ -96,7 +96,7 @@ export const WeekDataDisplay = ({ dispatch }) => {
     var kimaiDisplayData = kimaiTimesheets.filter(item => item.begin.split('T')[0] >= startDay && item.end?.split('T')[0] <= endDay);
 
     // loop through DB data and update Sheet link if available, otherwise include into display data
-    kimaiDisplayData.forEach(item => {
+    kimaiDisplayData.forEach(item => {  
         const entry = {
             timesheetId: item.id,
             date: item.begin.split('T')[0],
@@ -104,9 +104,9 @@ export const WeekDataDisplay = ({ dispatch }) => {
             end: item.end.substring(11, 16),
             project: kimaiData.projects[item.project].name,
             projectId: item.project,
-            customer: kimaiData.projects[item.project].customer.name,
-            customerId: kimaiData.projects[item.project].customer.id,
-            activity: kimaiData.activities[item.activity].name,
+            customer: kimaiData.projects[item.project].customer.name || "ERROR - invalid customer",
+            customerId: kimaiData.projects[item.project]?.customer.id || "ERROR - invalid project",
+            activity: kimaiData.activities[item.activity]?.name || "ERROR - invalid activity",
             activityId: item.activity,
             description: item.description ? item.description : "",
             billable: item.billable
