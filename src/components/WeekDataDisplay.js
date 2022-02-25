@@ -93,7 +93,7 @@ export const WeekDataDisplay = ({ dispatch }) => {
     // Kimai: select data of corresponding calenderweek
     const startDay = excelDisplayData[0].week.weekStartDay;
     const endDay = excelDisplayData[0].week.weekEndDay;
-    var kimaiDisplayData = kimaiTimesheets.filter(item => item.begin.split('T')[0] >= startDay && item.end.split('T')[0] <= endDay);
+    var kimaiDisplayData = kimaiTimesheets.filter(item => item.begin.split('T')[0] >= startDay && item.end?.split('T')[0] <= endDay);
 
     // loop through DB data and update Sheet link if available, otherwise include into display data
     kimaiDisplayData.forEach(item => {
