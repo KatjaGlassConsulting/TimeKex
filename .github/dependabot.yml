@@ -9,5 +9,4 @@ updates:
 
     ignore:
       - dependency-name: "react-scripts"
-        dependency-type: "development"
 
