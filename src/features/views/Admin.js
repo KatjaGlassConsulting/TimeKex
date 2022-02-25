@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import CreateDBDataExcel from '../../components/CreateDBDataExcel';
 import { KimaiStatusDisplay } from '../kimaiDB/KimaiStatusDisplay';
@@ -26,7 +26,7 @@ class Admin extends React.Component {
     render() {
         if (!(this.props.config.username && this.props.config.password) ||
             (this.props.kimaiGeneralStatusError && this.props.kimaiGeneralStatusError === "Invalid credentials")) {
-            return <Redirect to={{
+            return <Navigate to={{
                 pathname: '/login',
                 state: { from: '/admin' }
             }} />;

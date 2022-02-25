@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu, Icon } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class HeaderTop extends React.Component {
@@ -31,36 +31,14 @@ class HeaderTop extends React.Component {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
-    goToLink(link) {
-        if (link === "kimaiExternal"){
-            window.open(this.props.kimaiAPIURL.substring(0,this.props.kimaiAPIURL.length - 5), "_blank");
-        }
-        if (this.props.location.pathname !== link){
-            this.props.history.push(link);
-        }
-    }
-
-    handleItemClick = (e, { name }) => {
-        e.preventDefault()
-    
-        this.setState({ smallMenuEnlarge: false });
-        switch (name) {
-            case "Home": this.goToLink('/'); break;
-            case "Admin": this.goToLink('/admin'); break;
-            case "Kimai": this.goToLink('kimaiExternal'); break;
-            case "Info": this.goToLink('/info'); break;
-            default: break;
-        }
-    }
-
     handleSmallMenuEnlargeToggle = () => { this.setState({ smallMenuEnlarge: !this.state.smallMenuEnlarge }) }
 
     menu = <Menu.Menu position='left'>
-        <Menu.Item name='Home' onClick={this.handleItemClick} />
+        <Menu.Item name='Home' component={Link} to="/" />
         {(!this.props.config.adminUser || (this.props.config.adminUser.includes(this.props.config.username))) &&
-        <Menu.Item name='Admin' onClick={this.handleItemClick} />}
-        <Menu.Item name='Kimai' onClick={this.handleItemClick} icon='external alternate'/> 
-        <Menu.Item name='Info' onClick={this.handleItemClick}/> 
+        <Menu.Item name='Admin' component={Link} to="/admin" />}
+        <Menu.Item name='Kimai' component={Link} to="/kimaiExternal" icon='external alternate'/> 
+        <Menu.Item name='Info' component={Link} to="/info" /> 
     </Menu.Menu>;
 
     renderSmallMenu() {
@@ -126,7 +104,7 @@ const mapStateToProps = state => {
     };
 };
 
-export default withRouter(connect(
+export default connect(
     mapStateToProps,
     null
-)(HeaderTop));
+)(HeaderTop);

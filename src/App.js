@@ -1,9 +1,9 @@
 import React from 'react'
 import {
     HashRouter as Router,
-    Switch,
+    Routes,
     Route,
-    Redirect,
+    Navigate,
 } from 'react-router-dom'
 import { connect } from "react-redux";
 
@@ -23,13 +23,13 @@ class App extends React.Component {
         return (
             <Router>
                 <div className="App">                                        
-                    <Switch>
-                        <Route exact path="/" component={Main} />
-                        <Route exact path="/admin" component={Admin} />
-                        <Route exact path="/info" component={Info} />
-                        <Route exact path="/login" component={Login} />
-                        <Redirect to="/" />
-                    </Switch>
+                    <Routes>
+                        <Route path="/" component={Main} />
+                        <Route path="/admin" component={Admin} />
+                        <Route path="/info" component={Info} />
+                        <Route path="/login" component={Login} />
+                        <Navigate to="/404" />
+                    </Routes>
                 </div>
             </Router>
         )
