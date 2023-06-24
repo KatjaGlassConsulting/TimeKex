@@ -1,16 +1,4 @@
-const excelTimeToString = (time) => {
-    const basenumber = (time * 24)
-    var hour = Math.floor(basenumber).toString();
-    if (hour.length < 2) {
-        hour = '0' + hour;
-    }
-
-    var minute = Math.round((basenumber % 1) * 60).toString();
-    if (minute.length < 2) {
-        minute = '0' + minute;
-    }
-    return (hour + ':' + minute);
-};
+import { excelBooleanNoYes, excelString, excelDateToString, excelTimeToString } from '../../functions/excelSchemaFunctions'
 
 export const schema = {
     'Line number': {
@@ -19,75 +7,50 @@ export const schema = {
     },
     'Date': {
         prop: 'date',
-        type: (value) => {
-            const jsDateFromExcel = new Date(Math.round((value - 25569) * 86400 * 1000))
-            return jsDateFromExcel.toISOString().split('T')[0]
-        }
+        type: excelDateToString
     },
     'Client': {
         prop: 'customer',
-        type: (value) => {return value.replaceAll("\u00A0", " ")}
+        type: excelString
     },
     'Project': {
         prop: 'project',
-        type: (value) => {return value.replaceAll("\u00A0", " ")}
+        type: excelString
     },
     'Activity': {
         prop: 'activity',
-        type: (value) => {return value.replaceAll("\u00A0", " ")}
+        type: excelString
     },
     'chargeable': {
         prop: 'chargeable',
-        type: (value) => {
-            if (value === "ja" || value === "yes") {
-                return true;
-            }
-            else if (value === "nein" || value === "no") {
-                return false;
-            }
-            else if (value === undefined || value === "" || value === null) {
-                return null;
-            }
-            else {
-                return undefined;
-            }
-        }
+        type: excelBooleanNoYes
     },
     'chargeable (correction)': {
         prop: 'chargeableCorrected',
-        type: (value) => {
-            if (value === "ja") {
-                return true;
-            }
-            else if (value === "nein") {
-                return false;
-            }
-            else if (value === undefined || value === "" || value === null) {
-                return null;
-            }
-            else {
-                return undefined;
-            }
-        }
-    },
-    'Tasks': {
-        prop: 'tasks',
-        type: (value) => {return value.replaceAll("\u00A0", " ")}
-    },
-    'Details': {
-        prop: 'details',
-        type: (value) => {return value.replaceAll("\u00A0", " ")}
+        type: excelBooleanNoYes
     },
     'Start': {
         prop: 'start',
-        type: (value) => {
-            return excelTimeToString(value);
-        }
+        type: excelTimeToString
     },
     'End': {
         prop: 'end',
-        type: (value) => {
-            return excelTimeToString(value);
-        }
-    }
+        type: excelTimeToString
+    },
+    'Duration': {
+        prop: 'duration',
+        type: excelTimeToString
+    },
+    'Tasks': {
+        prop: 'tasks',
+        type: excelString
+    },
+    'Details': {
+        prop: 'details',
+        type: excelString
+    },
+    'Description': {
+        prop: 'description',
+        type: excelString
+    },    
 }

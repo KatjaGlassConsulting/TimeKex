@@ -14,6 +14,10 @@ const initialState = kimaiDBAdapter.getInitialState({
     data: []
 })
 
+export function reset() {
+    return { type: "kimaiTimesheets/reset", payload: {} };
+};
+
 export const fetchAllTimesheets = createAsyncThunk('kimaiTimesheets/fetchAllTimesheets', async (config) => {
     const response = await kimaiClient('timesheets?user=' + config.userId + '&orderBy=begin&order=DESC&size=1000', config);    
     if (response.code && response.code !== 200) {
@@ -30,6 +34,12 @@ const kimaiTimesheetsSlice = createSlice({
     name: 'kimaiTimesheets',
     initialState,
     reducers: {
+        reset: (state, action) => {
+            state.status = 'idle';
+            state.error = null;
+            state.userId = null;
+            state.data = [];
+        }
     },
     extraReducers: {
         [fetchAllTimesheets.pending]: (state, action) => {

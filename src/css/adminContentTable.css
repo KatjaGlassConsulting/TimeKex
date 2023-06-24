@@ -1,0 +1,21 @@
+.lightGreyBg {
+    background-color:lightgray;
+    color:black
+}
+
+.orangeBg {
+    background-color: rgb(255, 245, 227);
+}
+
+.greenBg {
+    background-color: rgb(191, 255, 148);
+}
+
+.redBg {
+    background-color: rgb(255, 128, 128);
+}
+
+.scrollXY {
+    overflow-x: scroll;
+    overflow-y: scroll;
+}

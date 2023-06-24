@@ -14,7 +14,8 @@ const initialState = kimaiDBAdapter.getInitialState({
     customers: [],
     projects: [],
     activities: [],
-    uploadStatus: {}
+    uploadStatus: {},
+    nextApprovalWeek: ""
 })
 
 export const fetchAllData = createAsyncThunk('kimaiData/fetchAllData', async (config) => {
@@ -31,13 +32,21 @@ export const fetchAllData = createAsyncThunk('kimaiData/fetchAllData', async (co
         throw customError;
     }
 
+    const nextApprovalWeek = await kimaiClient('next-week', config);
+    if (nextApprovalWeek && nextApprovalWeek.length > 4 && !isNaN(nextApprovalWeek.substring(0, 4))){
+        result.nextApprovalWeek = nextApprovalWeek;
+    }
+    else {
+        result.nextApprovalWeek = "";
+    }
+
     const responseCustomers = await kimaiClient('customers', config);
     result.customers = {};
     responseCustomers.forEach(item => {
         result.customers[item.id] = { id: item.id, name: item.name };
     });
 
-    const responseProjects = await kimaiClient('projects', config);
+    const responseProjects = await kimaiClient('projects?ignoreDates=1', config);
     result.projects = {};
     responseProjects.forEach(item => {
         result.projects[item.id] = { id: item.id, name: item.name, customer: result.customers[item.customer] ? result.customers[item.customer] : null };
@@ -61,7 +70,7 @@ export function getIdFromKimaiData(metadata, customer, project, activity) {
     var returnId = null;
     if (!project && !activity) {
         Object.keys(metadata.customers).forEach(key => {
-            if (metadata.customers[key].name === customer) {
+            if (metadata.customers[key].name?.toLowerCase() === customer?.toLowerCase()) {
                 returnId = key;
                 return;
             }
@@ -69,8 +78,8 @@ export function getIdFromKimaiData(metadata, customer, project, activity) {
     }
     else if (!activity) {
         Object.keys(metadata.projects).forEach(key => {
-            if (metadata.projects[key].name === project &&
-                metadata.projects[key].customer.name === customer) {
+            if (metadata.projects[key].name?.toLowerCase() === project?.toLowerCase() &&
+                metadata.projects[key].customer.name?.toLowerCase() === customer?.toLowerCase()) {
                 returnId = key;
                 return;
             }
@@ -78,14 +87,14 @@ export function getIdFromKimaiData(metadata, customer, project, activity) {
     }
     else {
         Object.keys(metadata.activities).forEach(key => {
-            if (metadata.activities[key].name === activity) {
+            if (metadata.activities[key].name?.toLowerCase() === activity?.toLowerCase()) {
                 if (!project && !metadata.activities[key].project) {
                     returnId = key;
                     return;
                 }
                 else if (project &&
-                    metadata.activities[key].project?.name === project &&
-                    metadata.activities[key].project?.customer.name === customer) {
+                    metadata.activities[key].project?.name?.toLowerCase() === project?.toLowerCase() &&
+                    metadata.activities[key].project?.customer.name?.toLowerCase() === customer?.toLowerCase()) {
                     returnId = key;
                     return;
                 }
@@ -99,14 +108,19 @@ export function reset() {
     return { type: "kimaiData/reset", payload: {} };
 };
 
-
 const kimaiSlice = createSlice({
     name: 'kimaiData',
     initialState,
     reducers: {
         reset: (state, action) => {
-            state.status = 'idle';
+            state.status= 'idle';
             state.error = null;
+            state.userId = null;
+            state.customers = [];
+            state.projects = [];
+            state.activities = [];
+            state.uploadStatus = {};
+            state.nextApprovalWeek = "";
         }
     },
     extraReducers: {
@@ -119,6 +133,7 @@ const kimaiSlice = createSlice({
             state.customers = action.payload.customers;
             state.projects = action.payload.projects;
             state.activities = action.payload.activities;
+            state.nextApprovalWeek = action.payload.nextApprovalWeek;
         },
         [fetchAllData.rejected]: (state, action) => {
             console.log(action);

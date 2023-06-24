@@ -7,6 +7,7 @@ export async function kimaiClient(method, config ) {
         
         req.setRequestHeader('X-AUTH-USER', config.username);
         req.setRequestHeader('X-AUTH-TOKEN', config.password);
+        req.setRequestHeader('Cache-Control', 'no-cache, no-store, max-age=0');
 
         req.onload = () => resolve(req.response);
         req.onerror = () => reject(req.statusText);

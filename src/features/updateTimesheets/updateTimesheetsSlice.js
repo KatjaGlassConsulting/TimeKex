@@ -12,40 +12,37 @@ const initialState = updateTimesheetsAdapter.getInitialState({
     status: 'idle',
     error: null,
     data: {},
-    deleteStatus: 'idle',
     deleteError: {},
     deletedData: {}
 })
 
-export const deleteTimesheets = createAsyncThunk('updateTimesheets/deleteTimesheets', async (collection) => {
-    const timesheets = collection.data;
+export const processTimesheets = createAsyncThunk('updateTimesheets/processTimesheets', async (collection) => {
+    // Step 1: Delete data if required
+    const deleteTimesheets = collection.deleteData;
+    const addTimesheets = collection.addData;
     const config = collection.config;
-    var result = [];
+    var deleteResult = [];
     var deleteError = {};
-
-    for (let index = 0; index < timesheets.length; index++) {
-        var timesheetId = timesheets[index].timesheetId;
+    for (let index = 0; index < deleteTimesheets.length; index++) {
+        var timesheetId = deleteTimesheets[index].timesheetId;
         const response = await kimaiClientPostGeneric("timesheets/" + timesheetId, config, {}, "DELETE");
         if (response === null) {
-            result.push({ ...timesheets[index], action: "deleted", hasIssue: false });
+            deleteResult.push({ ...deleteTimesheets[index], action: "deleted", hasIssue: false });
         }
         else {
             deleteError[timesheetId] = { errorMessage: response.message }
         }
     }
-    return { data: result, deleteError: deleteError };
-});
 
-export const pushAllTimesheets = createAsyncThunk('updateTimesheets/pushAllTimesheets', async (collection) => {
-    const timesheets = collection.data;
-    const config = collection.config;
     var result = {};
-
-    for (let index = 0; index < timesheets.length; index++) {
-        const response = await kimaiClientPostTimesheet(timesheets[index], config);
-        result[timesheets[index].lineNumber] = {};
-        result[timesheets[index].lineNumber].responseId = response.id;
+    var addError = false;
+    for (let index = 0; index < addTimesheets.length; index++) {
+        // submit timesheet to kimai
+        const response = await kimaiClientPostTimesheet(addTimesheets[index], config);
+        result[addTimesheets[index].lineNumber] = {};
+        result[addTimesheets[index].lineNumber].responseId = response.id;
         if (response.code && response.code !== 200) {
+            // in case of errors, add error text
             var errorText = response.message;
             if (response.errors?.children) {
                 for (var key in response.errors.children) {
@@ -54,16 +51,42 @@ export const pushAllTimesheets = createAsyncThunk('updateTimesheets/pushAllTimes
                     }
                 }
             }
-            result[timesheets[index].lineNumber].hasIssue = true;
-            result[timesheets[index].lineNumber].responseCode = response.code;
-            result[timesheets[index].lineNumber].error = true;
-            result[timesheets[index].lineNumber].errorMessage = errorText;
+            result[addTimesheets[index].lineNumber].hasIssue = true;
+            result[addTimesheets[index].lineNumber].responseCode = response.code;
+            result[addTimesheets[index].lineNumber].error = true;
+            result[addTimesheets[index].lineNumber].errorMessage = errorText;
+            addError = true;
         }
         else {
-            result[timesheets[index].lineNumber].hasIssue = false;
+            // no error
+            result[addTimesheets[index].lineNumber].hasIssue = false;
+
+            // submit meta fields if available
+            if (config.metaTimeEntry){
+                for (let i = 0; i < config.metaTimeEntry.length; i++){  
+                    const item = config.metaTimeEntry[i];                    
+                    if (addTimesheets[index][item.name] && addTimesheets[index][item.name].length > 0){
+                        const metaEntry = {"name":item.name, "value":addTimesheets[index][item.name]}
+                        
+                        const responseMeta = await kimaiClientPostGeneric("timesheets/" + response.id + "/meta", config, metaEntry, 'PATCH');
+                        if (!responseMeta.id) {
+                            console.log("ISSUES: (Timesheet metadata) ", metaEntry, response);
+                            result[addTimesheets[index].lineNumber].hasIssue = true;
+                            result[addTimesheets[index].lineNumber].responseCode = response.code;
+                            result[addTimesheets[index].lineNumber].error = true;
+                            result[addTimesheets[index].lineNumber].errorMessage = "Issue with Timesheet Metadata Creation";
+                        }
+                    }
+                }
+            }
         }
     }
-    return result;
+    
+    if (collection.callback){
+        collection.callback();
+    }
+
+    return { ...result, deleteResult: deleteResult, deleteError: deleteError, addError: addError };
 });
 
 
@@ -76,37 +99,27 @@ const updateTimesheetsSlice = createSlice({
     initialState,
     reducers: {
         reset: (state, action) => {
-            state.status = 'idle'
-            state.error = null
-            state.data = {}
-            state.deleteStatus = 'idle'
-            state.deleteError = {}
-            state.deletedData = {}
+            state.status = 'idle';
+            state.error = null;
+            state.data = {};
+            state.deleteError = {};
+            state.deletedData = {};
         }
     },
     extraReducers: {
-        [pushAllTimesheets.pending]: (state, action) => {
+        [processTimesheets.pending]: (state) => {
             state.status = 'loading'
         },
-        [pushAllTimesheets.fulfilled]: (state, action) => {
+        [processTimesheets.fulfilled]: (state, action) => {
             state.status = 'succeeded'
             state.data = action.payload;
-        },
-        [pushAllTimesheets.rejected]: (state, action) => {
-            state.status = 'failed'
-            state.error = action.error.message
-        },
-        [deleteTimesheets.pending]: (state, action) => {
-            state.deleteStatus = 'loading'
-        },
-        [deleteTimesheets.fulfilled]: (state, action) => {
-            state.deleteStatus = 'succeeded'
-            state.deletedData = action.payload.data;
+            state.error = action.payload.addError;
+            state.deletedData = action.payload.deleteResult;
             state.deleteError = action.payload.deleteError;
         },
-        [deleteTimesheets.rejected]: (state, action) => {
-            state.deleteStatus = 'failed'
-            state.deleteError = action.error.message
+        [processTimesheets.rejected]: (state, action) => {
+            state.status = 'failed'
+            state.error = action.error.message
         }
     },
 })

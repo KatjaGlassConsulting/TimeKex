@@ -14,6 +14,21 @@ TimeKex is available in the current version which does not contain tests. The so
 
 The demonstration is running on the stable Kimai demo instance. Be aware that this demo instances is regularily rebuild.
 
+## Version 1.0.18
+
+The current released version of TimeKex is 1.0.18 and is running under Kimai2 Version 1 and Version 2. TimeKex does contain many undocumented features which can be controlled via the config.js file. You could activate different features when you change from "false" to "true". The following options are available:
+
+  - approval - in case the ApprovalBundle is used, additional related functionality will be available
+  - overtime - in case the ApprovalBundle is used and working with overtime, additional related functionality will be available
+  - summary15mins - a new tab is visible which indicates time-frames which are no 15 minute blocks
+  - breakChecks - an option to check for German Break Rules
+
+Remark: The Kimai ApprovalBundle Plugin is currenty (summer 2023) not supporting Kimai2 Version 2. An update is expected in Q3/Q4 2023.
+
+### CORS
+
+It is meant to run TimeKex on the same server as Kimai, then you will not have issues with CORS. You could for example put the build folder in a folder "timeKex" under your kimai public folder. If you run it on different servers, make sure to enable CORS from what ever URL you have.
+
 ## License
 
 ### Code & Scripts

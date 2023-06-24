@@ -1,132 +1,165 @@
-import React from 'react';
-import { Menu, Icon } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { Menu, Icon, Dropdown } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
-class HeaderTop extends React.Component {
-    state = {
-        smallMenuEnlarge: false,
-        width: 0,
-        height: 0
-    }
+import { reset as resetUpdated } from '../features/updateTimesheets/updateTimesheetsSlice'
+import { reset as resetExcel } from '../features/excelImport/excelSlice'
+import { reset as resetKimai } from '../features/kimaiDB/kimaiSlice'
+import { reset as resetTimesheet } from '../features/kimaiTimesheets/kimaiTimesheetsSlice'
+import { reset as resetApproval } from '../features/approvalSlice'
+import { reset as resetOvertime } from '../features/overtimeSlice'
+import { messagesReset as resetMessages } from '../features/messages/messagesSlice'
+import { globalConfigSet } from '../features/globalConfig/globalConfigSlice'
 
-    constructor(props) {
-        super(props);
+function HeaderTop(props) {
+    const kimaiAPIURL = useSelector((state) => state.config.kimaiAPI);
+    const config = useSelector((state) => state.config);
 
-        this.goToLink = this.goToLink.bind(this)
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-        this.handleSmallMenuEnlargeToggle = this.handleSmallMenuEnlargeToggle.bind(this);
-    }
+    const [smallMenuEnlarge, setSmallMenuEnlarge] = useState(false)
+    const [width, setWidth] = useState(0)
 
-    componentDidMount() {
-        this.updateWindowDimensions();
-        window.addEventListener('resize', this.updateWindowDimensions);
-    }
+    const dispatch = useDispatch()
 
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions);
-    }
+    useEffect(() => {
+        setWidth(window.innerWidth)
+        window.addEventListener('resize', updateWindowDimensions, false)
 
-    updateWindowDimensions() {
-        this.setState({ width: window.innerWidth, height: window.innerHeight });
-    }
-
-    goToLink(link) {
-        if (link === "kimaiExternal"){
-            window.open(this.props.kimaiAPIURL.substring(0,this.props.kimaiAPIURL.length - 5), "_blank");
+        return () => {
+            window.removeEventListener("resize", updateWindowDimensions);
         }
-        if (this.props.location.pathname !== link){
-            this.props.history.push(link);
-        }
+    }, [])
+
+    const onLogoutClick = () => {
+        const newConfig = {...config, username : null, password : null }
+        dispatch(globalConfigSet(newConfig));
+        dispatch(resetUpdated())
+        dispatch(resetExcel())
+        dispatch(resetKimai())
+        dispatch(resetTimesheet())
+        dispatch(resetMessages())
+        dispatch(resetApproval())
+        dispatch(resetOvertime())
+        localStorage.removeItem("User");
+        
     }
 
-    handleItemClick = (e, { name }) => {
-        e.preventDefault()
-    
-        this.setState({ smallMenuEnlarge: false });
-        switch (name) {
-            case "Home": this.goToLink('/'); break;
-            case "Admin": this.goToLink('/admin'); break;
-            case "Kimai": this.goToLink('kimaiExternal'); break;
-            case "Info": this.goToLink('/info'); break;
-            default: break;
-        }
+    const updateWindowDimensions = () => {
+        setWidth(window.innerWidth)
     }
 
-    handleSmallMenuEnlargeToggle = () => { this.setState({ smallMenuEnlarge: !this.state.smallMenuEnlarge }) }
+    const handleSmallMenuEnlargeToggle = () => {
+        setSmallMenuEnlarge(!smallMenuEnlarge)
+    }
 
-    menu = <Menu.Menu position='left'>
-        <Menu.Item name='Home' onClick={this.handleItemClick} />
-        {(!this.props.config.adminUser || (this.props.config.adminUser.includes(this.props.config.username))) &&
-        <Menu.Item name='Admin' onClick={this.handleItemClick} />}
-        <Menu.Item name='Kimai' onClick={this.handleItemClick} icon='external alternate'/> 
-        <Menu.Item name='Info' onClick={this.handleItemClick}/> 
-    </Menu.Menu>;
+    const menu = (
+        <Menu.Menu position="left" className="menu_items_group">
+            <Menu.Item name="Home">
+                <Link to="/">Home</Link>
+            </Menu.Item>
+            {(config.overtime !== false) && (
+            <Menu.Item name="Overtime">
+                <Link to="/overtime">Overtime</Link>
+            </Menu.Item>)}
+            {(!config.adminUser ||
+                config.adminUser.includes(config.username?.toLowerCase())) && (
+                <Menu.Item name="Admin">
+                    <Link to="/admin">Admin</Link>
+                </Menu.Item>
+            )}
+            {kimaiAPIURL &&
+                <Menu.Item name="Kimai">
+                    <a
+                        href={kimaiAPIURL.substring(
+                            0,
+                            kimaiAPIURL.length - 5
+                        )}
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        <Icon name="external alternate" />
+                        Kimai
+                    </a>
+                </Menu.Item>
+            }
+            <Menu.Item name="Info">
+                <Link to="/info">Info V{process.env.REACT_APP_VERSION}</Link>
+            </Menu.Item>
+        </Menu.Menu>
+    )
 
-    renderSmallMenu() {
-        const head =
+    const userMenu = (
+        <Menu.Menu position="right" className="menu_items_group">
+            <Dropdown item text={config.username} position="left">
+                <Dropdown.Menu>
+                    <Dropdown.Item onClick={onLogoutClick}>
+                        Logout
+                    </Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+        </Menu.Menu>
+    )
+
+    const renderSmallMenu = () => {
+        const head = (
             <div className="ui container fluid" align="left">
                 <table align="center">
                     <tbody>
                         <tr>
                             <td valign="middle"><a href="https://www.glacon.eu" rel="noopener noreferrer" target="_blank">
                                 <img src='./images/fischlogo_02_black_small.png' alt="Logo" style={{ height: "60px" }}/>
-                            </a></td>                            
+                            </a></td>
                             <td></td>
-                            <td valign="middle"><Icon name='sidebar' size="big" onClick={this.handleSmallMenuEnlargeToggle} /></td>
+                            <td valign="middle">
+                                <Icon
+                                    name="sidebar"
+                                    size="big"
+                                    onClick={handleSmallMenuEnlargeToggle}
+                                />
+                            </td>
                         </tr>
                     </tbody>
                 </table>
-            </div>;
-        if (this.state.smallMenuEnlarge === false) {
-            return (<div>{head}</div>);
+            </div>
+        )
+        if (smallMenuEnlarge === false) {
+            return <div>{head}</div>
         }
         return (
             <div className="ui centered grid">
                 <div className="hideContentOnLargeWidth">
                     {head}
                     <hr />
-                    <div className="color_medium_light" >
+                    <div className="color_medium_light">
                         <div className="ui container float" align="left">
                             <Menu inverted secondary fluid vertical>
-                                {this.menu}
+                                {menu}
                             </Menu>
                         </div>
                     </div>
                 </div>
             </div>
-        );
+        )
     }
 
-    renderLargeMenu() {
-        return (            
-                <Menu inverted secondary className="hideContentOnSmallWidth">
-                    <div className="ui"><a href="https://www.glacon.eu" rel="noopener noreferrer" target="_blank">
-                        <img src='./images/fischlogo_02_black_small.png' alt="Logo" style={{ height: "60px" }} className="padding_left_right"/>
-                    </a></div>                    
-                    {this.menu}
-                </Menu>
-        );
-    }
-
-    render() {
+    const renderLargeMenu = () => {
         return (
-            <div className="padding_top_bottom color_medium_light">
-                {this.state.width >= 1000 && this.renderLargeMenu()}
-                {this.state.width < 1000 && this.renderSmallMenu()}
-            </div >
-        );
+            <Menu inverted secondary className="hideContentOnSmallWidth">
+                <div className="ui"><a href="https://www.glacon.eu" rel="noopener noreferrer" target="_blank">
+                        <img src='./images/fischlogo_02_black_small.png' alt="Logo" style={{ height: "60px" }} className="padding_left_right"/>
+                    </a></div>
+                {menu}
+                {userMenu}
+            </Menu>
+        )
     }
+
+    return (
+        <div className="padding_top_bottom color_medium_light">
+            {width >= 1000 && renderLargeMenu()}
+            {width < 1000 && renderSmallMenu()}
+        </div>
+    )
 }
 
-const mapStateToProps = state => {
-    return {
-        kimaiAPIURL: state.config.kimaiAPI,
-        config: state.config
-    };
-};
-
-export default withRouter(connect(
-    mapStateToProps,
-    null
-)(HeaderTop));
+export default HeaderTop
