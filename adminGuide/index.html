@@ -206,7 +206,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../app/" class="md-tabs__link">
+      <a href="../app/index.html" class="md-tabs__link">
         Live Demo
       </a>
     </li>
@@ -360,22 +360,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#create-db-data" class="md-nav__link">
-    Create DB Data
+  <a href="#load-excel-file" class="md-nav__link">
+    Load Excel File
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#db-data-creation-successful" class="md-nav__link">
-    DB Data creation successful
+  <a href="#kimai-creation-status" class="md-nav__link">
+    Kimai Creation Status
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#check-back-in-kimai" class="md-nav__link">
-    Check back in Kimai
+  <a href="#check-in-kimai" class="md-nav__link">
+    Check in Kimai
   </a>
   
 </li>
@@ -435,7 +435,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../app/" class="md-nav__link">
+      <a href="../app/index.html" class="md-nav__link">
         None
       </a>
     </li>
@@ -480,22 +480,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#create-db-data" class="md-nav__link">
-    Create DB Data
+  <a href="#load-excel-file" class="md-nav__link">
+    Load Excel File
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#db-data-creation-successful" class="md-nav__link">
-    DB Data creation successful
+  <a href="#kimai-creation-status" class="md-nav__link">
+    Kimai Creation Status
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#check-back-in-kimai" class="md-nav__link">
-    Check back in Kimai
+  <a href="#check-in-kimai" class="md-nav__link">
+    Check in Kimai
   </a>
   
 </li>
@@ -520,20 +520,23 @@
                 <h1 id="admin-panel">Admin Panel<a class="headerlink" href="#admin-panel" title="Permanent link">&para;</a></h1>
 <p>Via the Admin Panel it is possible to create Customer, Projects and Activities via an Excel file. If you need to import Customer and Projects together with a lot of other fields, I recommend to use the Kimai command line functionality as in the <a href="https://www.kimai.org/documentation/imports.html" target="_blank">documentation</a>. For a quick creation, e.g. for test data, this API based approach can be used.</p>
 <h2 id="excel-file">Excel File<a class="headerlink" href="#excel-file" title="Permanent link">&para;</a></h2>
-<p>Customer, Projects and Activities can automatically be created through an Excel file. An example file is available under "./exampleFiles/TimeKex_createData.xlsx"</p>
+<p>Customer, Projects and Activities can automatically be created through an Excel file. An example file is available under "./exampleFiles/TimeKex_createData.xlsx". The very first line defines the column types (text, numerics, dates) and is recommended to be kept as otherwise sometimes not all information from Excel are imported correctly. The column visible <strong>MUST BE</strong> yes, otherwise the follow up creation from projects to activities might create a new project.</p>
 <p><img alt="Example Excel File" src="../img/example_admin_create_00.png" /></p>
-<h2 id="create-db-data">Create DB Data<a class="headerlink" href="#create-db-data" title="Permanent link">&para;</a></h2>
-<p>To actually create the Customer, Projects and Activities, the "Admin" panel can be used. Depending on the configuration, this panel might not be visible for the currently logged in user.</p>
+<h2 id="load-excel-file">Load Excel File<a class="headerlink" href="#load-excel-file" title="Permanent link">&para;</a></h2>
+<p>The next step is to read in the Excel file with the button <code>Choose Meta File</code>. This option is available in the "Admin". Depending on the configuration, this panel might not be visible for the currently logged in user. Make sure you define your admin user names in the configuration.</p>
 <p>When the "adminUser" configration is set, then only these users mentioned there will have the "Admin" panel available. If the config does not contain any user, the Admin panel is visible for all.</p>
 <div class="highlight"><pre><span></span><code>    &quot;adminUser&quot; : [&quot;anna_admin&quot;,&quot;susan_super&quot;]
 </code></pre></div>
-<p>By clicking "Create DB Data" the excel file with the specific structure can be selected to create the corresponding entries.</p>
+<p>By clicking <code>Choose Meta File</code> the excel file with the specific structure can be selected to be read in. The customer "DELETE" will not be read in, but should be available in the Excel file.</p>
 <p><img alt="Screenshot to perform &quot;Create DB Data&quot;" src="../img/example_admin_create_01.png" /></p>
-<h2 id="db-data-creation-successful">DB Data creation successful<a class="headerlink" href="#db-data-creation-successful" title="Permanent link">&para;</a></h2>
-<p>After loading the Excel file, the Customers, Projects and Activities are created via the Kimai API. The success messages can be reviewed on the screen.</p>
-<p><img alt="Screenshot of status messages" src="../img/example_admin_create_02.png" /></p>
-<p><strong>Issues:</strong> When something should be created which already exists, it is not created. Other issues could be available, e.g. the user does not have admin access. This will be printed. Also when a project cannot be created, for example as no customer had been provided, an issue message will appear.</p>
-<h2 id="check-back-in-kimai">Check back in Kimai<a class="headerlink" href="#check-back-in-kimai" title="Permanent link">&para;</a></h2>
+<p>The content is now displayed in a table format:</p>
+<p><img alt="Screenshot to perform &quot;Create DB Data&quot;" src="../img/example_admin_create_02.png" /></p>
+<p>To actually create the customers / projects / activities, either the "load all" button next to "Action" in the column header can be clicked to create all items, or the single "create" buttons can be clicked to create the corresponding items in Kimai one by one.</p>
+<p>This approach can also be used to change settings. The grey boxes contain information which is not read into the application and for this are "unknown" of whether things has been changed or not.</p>
+<h2 id="kimai-creation-status">Kimai Creation Status<a class="headerlink" href="#kimai-creation-status" title="Permanent link">&para;</a></h2>
+<p>By performing the update either by clicking the "Action" button or the single "create"/"change" buttons, the status of the changes are displayed in the table. "ok" meand that it had been created in Kimai. There could also be errors, for example if a user without permission tried to create a project.</p>
+<p><img alt="Screenshot of status messages" src="../img/example_admin_create_04.png" /></p>
+<h2 id="check-in-kimai">Check in Kimai<a class="headerlink" href="#check-in-kimai" title="Permanent link">&para;</a></h2>
 <p>You can log into Kimai to see that these projects, customers and activities has been created.</p>
 <p><img alt="Screenshot of Kimai created activities" src="../img/example_admin_create_03.png" /></p>
                 

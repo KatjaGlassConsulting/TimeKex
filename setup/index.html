@@ -206,7 +206,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../app/" class="md-tabs__link">
+      <a href="../app/index.html" class="md-tabs__link">
         Live Demo
       </a>
     </li>
@@ -379,6 +379,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#copy-paste-installation" class="md-nav__link">
+    Copy &amp; Paste Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cors" class="md-nav__link">
+    CORS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#deployment" class="md-nav__link">
     Deployment
   </a>
@@ -442,7 +456,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../app/" class="md-nav__link">
+      <a href="../app/index.html" class="md-nav__link">
         None
       </a>
     </li>
@@ -494,6 +508,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#copy-paste-installation" class="md-nav__link">
+    Copy &amp; Paste Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cors" class="md-nav__link">
+    CORS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#deployment" class="md-nav__link">
     Deployment
   </a>
@@ -533,7 +561,7 @@
                 
                 <h1 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h1>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<p>To be able to run TimeKex, a running instance of Kimai is required together with a user and an API key of this user. The API password can be set in Kimai via "profile", "API" and then "API Password".</p>
+<p>To be able to run TimeKex, a running instance of Kimai is required together with a user and an API key of this user. The API password can be set in Kimai via "profile", "API" and then "API Password". As "billable = true" is used for the timesheet entries, user must have grated the corresponding role. You find this setting in Kimai "System" -&gt; "Roles" -&gt; "edit_billable_own_timesheet". Set this to "yes" for users.</p>
 <p>There is a stable demonstration version available for Kimai which can be used for demonstration purposes (<a href="https://demo-stable.kimai.org/de/login" target="_blank">linked here</a>). To checkout demo users and specifically the API password of a demo user, check the <a href="https://www.kimai.org/demo/" target="_blank">demo information page</a>.</p>
 <h2 id="local-development-and-compilation">Local Development and Compilation<a class="headerlink" href="#local-development-and-compilation" title="Permanent link">&para;</a></h2>
 <p>TimeKex is a ReactJS Web Application. To run a local development version, you can use NPM to install all dependencies and start or build the app. </p>
@@ -545,6 +573,23 @@
 <li>Start the development server with <code>npm start</code></li>
 <li>Build the app via <code>npm run build</code></li>
 </ol>
+<h2 id="copy-paste-installation">Copy &amp; Paste Installation<a class="headerlink" href="#copy-paste-installation" title="Permanent link">&para;</a></h2>
+<p>The build and deployed homepage is available via GitHub pages in the <code>gh-pages</code> branch. The TimeKex application is there available in the <code>app</code> folder (<a href="https://github.com/KatjaGlassConsulting/TimeKex/tree/gh-pages/app">https://github.com/KatjaGlassConsulting/TimeKex/tree/gh-pages/app</a>). You can download and copy all files from the app for example into kimai/public/timekex. Then you can start TimeKex on this web server using your kimai URL, but inlcude kimekex/index.html in the URL, for example: https://example.kimai.de/timekex/index.html. You must update the configuration to fit your needs. It is very important to update the kimaiAPI. If you host kimai under https://example.kimai.de, then the api would be located at  https://example.kimai.de/api/.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;kimaiAPI&quot;</span> <span class="o">:</span> <span class="s2">&quot;https://demo-stable.kimai.org/api/&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ignoreActivities&quot;</span> <span class="o">:</span> <span class="p">[</span><span class="s2">&quot;Vacation&quot;</span><span class="p">,</span><span class="s2">&quot;Public Holiday&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;adminUser&quot;</span> <span class="o">:</span> <span class="p">[</span><span class="s2">&quot;anna_admin&quot;</span><span class="p">,</span><span class="s2">&quot;susan_super&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;approval&quot;</span> <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">&quot;overtime&quot;</span> <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">&quot;summary15mins&quot;</span> <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">&quot;breakChecks&quot;</span> <span class="o">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="cors">CORS<a class="headerlink" href="#cors" title="Permanent link">&para;</a></h2>
+<p>It is meant to run TimeKex on the same server as Kimai, then you will not have issues with CORS. You could for example put the build folder in a folder "timeKex" under your kimai public folder. If you run it on different servers, make sure to enable CORS from what ever URL you have.</p>
+<p>To be able to run the demonstration which is accessing a different server, you need to start a browswer without security settings. If you are using Chrome with the default paths, you might be able to start a chrome with disabled security this way:</p>
+<div class="highlight"><pre><span></span><code>&quot;C:\Program Files\Google\Chrome\Application\chrome.exe&quot; --user-data-dir=&quot;C:/temp/chrome_session&quot; --disable-web-security
+</code></pre></div>
 <h2 id="deployment">Deployment<a class="headerlink" href="#deployment" title="Permanent link">&para;</a></h2>
 <p>The TimeKex web application is a simple static HTML fileset which can run locally or on any Webserver. When you have build the app, it can simply be started by opening "index.html".</p>
 <p>The final build folder contains next to the config.js also additional example configurations files which you might want to try. Just copy the content as config.js to apply the corresponding configuration. The current configuration files are using the Kimai demonstration server and users.</p>
@@ -626,20 +671,6 @@
           </div>
         </a>
       
-      
-        <a href="../app/" class="md-footer__link md-footer__link--next" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              None
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
       
     </nav>
   
