@@ -1,6 +1,6 @@
 # TimeKex - TimeTracking, Kimai meets Excel
 
-This WebApplication is designed to allow the tracking of working hours in Excel which can then be uploaded to the Kimai Timetracking application.
+This WebApplication is designed to allow the tracking of working hours in Excel which can then be uploaded to the Kimai Timetracking application supporting version 1 and 2.
 
 ![Screenshot of login screen](./docs/img/timesheet_to_kimai_01.gif)
 
