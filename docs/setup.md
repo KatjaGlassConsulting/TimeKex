@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-To be able to run TimeKex, a running instance of Kimai is required together with a user and an API key of this user. The API password can be set in Kimai via "profile", "API" and then "API Password".
+To be able to run TimeKex, a running instance of Kimai is required together with a user and an API key of this user. The API password can be set in Kimai via "profile", "API" and then "API Password". As "billable = true" is used for the timesheet entries, user must have grated the corresponding role. You find this setting in Kimai "System" -> "Roles" -> "edit_billable_own_timesheet". Set this to "yes" for users.
 
 There is a stable demonstration version available for Kimai which can be used for demonstration purposes (<a href="https://demo-stable.kimai.org/de/login" target="_blank">linked here</a>). To checkout demo users and specifically the API password of a demo user, check the <a href="https://www.kimai.org/demo/" target="_blank">demo information page</a>.
 
@@ -16,6 +16,32 @@ TimeKex is a ReactJS Web Application. To run a local development version, you ca
 4. Install packages using `npm install`
 5. Start the development server with `npm start`
 6. Build the app via `npm run build`
+
+## Copy & Paste Installation
+
+The build and deployed homepage is available via GitHub pages in the `gh-pages` branch. The TimeKex application is there available in the `app` folder ([https://github.com/KatjaGlassConsulting/TimeKex/tree/gh-pages/app](https://github.com/KatjaGlassConsulting/TimeKex/tree/gh-pages/app)). You can download and copy all files from the app for example into kimai/public/timekex. Then you can start TimeKex on this web server using your kimai URL, but inlcude kimekex/index.html in the URL, for example: https://example.kimai.de/timekex/index.html. You must update the configuration to fit your needs. It is very important to update the kimaiAPI. If you host kimai under https://example.kimai.de, then the api would be located at  https://example.kimai.de/api/.
+
+```JS
+var config = {
+    "kimaiAPI" : "https://demo-stable.kimai.org/api/",
+    "ignoreActivities" : ["Vacation","Public Holiday"],
+    "adminUser" : ["anna_admin","susan_super"],
+    "approval" : false,
+    "overtime" : false,
+    "summary15mins" : false,
+    "breakChecks" : false
+}
+```
+
+## CORS
+
+It is meant to run TimeKex on the same server as Kimai, then you will not have issues with CORS. You could for example put the build folder in a folder "timeKex" under your kimai public folder. If you run it on different servers, make sure to enable CORS from what ever URL you have.
+
+To be able to run the demonstration which is accessing a different server, you need to start a browswer without security settings. If you are using Chrome with the default paths, you might be able to start a chrome with disabled security this way:
+
+```
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --user-data-dir="C:/temp/chrome_session" --disable-web-security
+```
 
 ## Deployment
 

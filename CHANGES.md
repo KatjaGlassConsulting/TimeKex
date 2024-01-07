@@ -1,5 +1,9 @@
 # Changes
 
+## 1.0.18
+
+- enhance documentation and test data
+
 ## 0.1.0 to 1.0.18
 
 - many programming updates

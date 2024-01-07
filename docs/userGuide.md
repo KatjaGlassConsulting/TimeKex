@@ -19,7 +19,7 @@ If there is no automatic login, the login screen is displayed:
 
 ![Screenshot of login screen](./img/login_screen.png)
 
-If invalid credentials are used, a modal is displayed to show this.
+If invalid credentials are used, a modal is displayed to show this. The login credentials are stored in the browser cache. Additionally, each call to Kimai is sending the credentials along. It is recommended to not share the PC with others as they might inspect the API password.
 
 ## Process Flow
 
@@ -86,7 +86,15 @@ The web application is checking some typical errors, that these are available be
 
 When clicking the "Send to Kimai" button, only "add" and "delete" actions are executed.
 
+## Possible issues
 
+When the connection to Kimai is not possible, the status box for "Kimai General Data Status" will be red as shown below.
 
+![Screenshot of main bar with issues](./img/layout_main_issue.png)
 
+There could be various reaons why this can happen.
+
+1. The wrong "kimaiAPI" has been defined in the config.json. You can check this by clicking the Kimai link in the headline - Kimai is likely not available.
+2. Kimai is in general offline for what ever reasons. If Kimai is running in an internal VPN envirionment, make sure to enable VPN. Check also that the Kimai server is up and running (you can check by following the Kimai link in the top).
+3. It could be that there are CORs errors. This happens when Kimai runs on another server than the TimeKex application. You can see this in the browsers developer tools, for example when checking the "network" for the "me" request. Make sure you run both on the same server, setup the server to allow cross origin access or (for development useful), use a browser with disabled security settings (example for Chrome: `"C:\Program Files\Google\Chrome\Application\chrome.exe" --user-data-dir="C:/temp/chrome_session" --disable-web-security`).
 
