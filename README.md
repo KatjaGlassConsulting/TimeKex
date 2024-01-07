@@ -14,7 +14,7 @@ TimeKex is available in the current version which does not contain tests. The so
 
 The demonstration is running on the stable Kimai demo instance. Be aware that this demo instances is regularily rebuild.
 
-**Tested with** TimeKex was tested with Kimai version > 1.20. TimeKex is in the update process of supporting 2.8, but currently has some issues with the API.
+**Tested with** TimeKex was tested with Kimai version > 1.20 and 2.8 and is working on both systems without the need to change anything.
 
 ## Prerequisites
 
