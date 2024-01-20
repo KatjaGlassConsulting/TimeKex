@@ -6,13 +6,13 @@ This WebApplication is designed to allow the tracking of working hours in Excel 
 
 [Kimai](https://www.kimai.org/) is an open-source free time-tracking application which comes with a lot of functionality and capabilities. There might be situations where the times should be tracked in Excel and finally be uploaded to Kimai. TimeKex is designed to support this process.
 
-The documentation of TimeKex as well as a running demonstration instance is accessible [here](https://katjaglassconsulting.github.io/TimeKex/).
+The documentation of TimeKex as well as a running demonstration instance is available [here](https://katjaglassconsulting.github.io/TimeKex/).
 
 ## Status
 
 TimeKex is available in the current version which does not contain tests. The source code is available under the MIT license which allows a flexible and generic usage and modifications without warrenty.
 
-The demonstration is running on the stable Kimai demo instance. Be aware that this demo instances is regularily rebuild.
+The demonstration is running on the stable Kimai demo instance. Be aware that this demo instances is regularily rebuild and as this is running on a different server CORS issues are available (see below). [Example excel](https://github.com/KatjaGlassConsulting/TimeKex/tree/main/exampleFiles) files are located in the GitHub repository.
 
 **Tested with** TimeKex was tested with Kimai version > 1.20 and 2.8 and is working on both systems without the need to change anything.
 
@@ -22,16 +22,16 @@ TimeKex will set all time entries submitted from Excel to Kimai as "billable". F
 
 When you want to create customers, projects and activities, please make sure that in the Excel file all projects are marked as "visible = yes", otherwise there will be issues with creating these.
 
-## Version 1.0.18
+## TimeKex Version 1.0.18
 
-The current released version of TimeKex is 1.0.18 and is running under Kimai2 Version 1 and Version 2. TimeKex does contain many undocumented features which can be controlled via the config.js file. You could activate different features when you change from "false" to "true". The following options are available:
+The current released version of TimeKex is 1.0.18 and is running under Kimai2 Version 1 and Version 2. TimeKex does contain many undocumented features which can be controlled via the config.js file and partially needs the ApprovalBundle. You could activate different features when you change from "false" to "true". The following options are available:
 
   - approval - in case the ApprovalBundle is used, additional related functionality will be available
   - overtime - in case the ApprovalBundle is used and working with overtime, additional related functionality will be available
   - summary15mins - a new tab is visible which indicates time-frames which are no 15 minute blocks
   - breakChecks - an option to check for German Break Rules
 
-Remark: The Kimai ApprovalBundle Plugin is currenty (summer 2023) not supporting Kimai2 Version 2. An update is expected in Q3/Q4 2023.
+Remark: The Kimai ApprovalBundle Plugin is supporting Kimai2 Version 1 and 2 - please read the corresponding readme for additional information.
 
 ## CORS
 
