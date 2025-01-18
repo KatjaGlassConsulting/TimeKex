@@ -12,6 +12,7 @@ import OvertimeOverview from './features/views/OvertimeOverview';
 import Admin from './features/views/Admin';
 import Info from './features/views/Info';
 import Login from './features/views/Login';
+import LoginToken from './features/views/LoginToken';
 import { globalConfigSet } from './features/globalConfig/globalConfigSlice';
 
 function App (props) {
@@ -19,8 +20,11 @@ function App (props) {
 
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem("User"));
+        const token = JSON.parse(localStorage.getItem("token"));
         if (!props._config.username && !props._config.password && user){
             dispatch(globalConfigSet({...props._config, username: user.user, password: user.password}));
+        } else if (!props._config.token && token){
+            dispatch(globalConfigSet({...props._config, token: token.token}));
         } else {
             dispatch(globalConfigSet(props._config));
         }
@@ -35,6 +39,7 @@ function App (props) {
                     <Route exact path="/admin" component={Admin} />
                     <Route exact path="/info" component={Info} />
                     <Route exact path="/login" component={Login} />
+                    <Route exact path="/loginToken" component={LoginToken} />
                     <Redirect to="/" />
                 </Switch>
             </div>

@@ -18,7 +18,7 @@ function Main(props) {
     const kimaiGeneralStatusError = useSelector((state) => state.kimaiData.error);
 
     if (
-        !(config.username && config.password) ||
+        !((config.username && config.password) || (config.loginToken === true && config.token)) ||
         (kimaiGeneralStatusError &&
             kimaiGeneralStatusError === 'Invalid credentials')
     ) {

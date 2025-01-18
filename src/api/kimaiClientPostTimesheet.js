@@ -5,8 +5,12 @@ export async function kimaiClientPostTimesheet(timesheet, config) {
         req.open("POST", config.kimaiAPI + 'timesheets', true);
         req.responseType = "json";
         req.setRequestHeader('Content-Type', 'application/json');
-        req.setRequestHeader('X-AUTH-USER', config.username);
-        req.setRequestHeader('X-AUTH-TOKEN', config.password);
+        if (config.loginToken !== true) {
+            req.setRequestHeader('X-AUTH-USER', config.username);
+            req.setRequestHeader('X-AUTH-TOKEN', config.password);
+        } else {
+            req.setRequestHeader('Authorization', 'Bearer ' + config.token);
+        }
         req.setRequestHeader('Cache-Control', 'no-cache, no-store, max-age=0');
         
         req.onload = () => resolve(req.response);

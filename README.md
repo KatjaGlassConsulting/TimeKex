@@ -22,9 +22,9 @@ TimeKex will set all time entries submitted from Excel to Kimai as "billable". F
 
 When you want to create customers, projects and activities, please make sure that in the Excel file all projects are marked as "visible = yes", otherwise there will be issues with creating these.
 
-## TimeKex Version 1.0.18
+## TimeKex Version 1.0.20
 
-The current released version of TimeKex is 1.0.18 and is running under Kimai2 Version 1 and Version 2. TimeKex does contain many undocumented features which can be controlled via the config.js file and partially needs the ApprovalBundle. You could activate different features when you change from "false" to "true". The following options are available:
+The current released version of TimeKex is 1.0.20 and is running under Kimai2 Version 1 and Version 2. TimeKex does contain many undocumented features which can be controlled via the config.js file and partially needs the ApprovalBundle. You could activate different features when you change from "false" to "true". The following options are available:
 
   - approval - in case the ApprovalBundle is used, additional related functionality will be available
   - overtime - in case the ApprovalBundle is used and working with overtime, additional related functionality will be available
@@ -36,6 +36,10 @@ Remark: The Kimai ApprovalBundle Plugin is supporting Kimai2 Version 1 and 2 - p
 ## ApprovalBundle version 2.2 and up
 
 In case the ApprovalBundle is used in version 2.2 and up, you need to set the configuration "bundleApiUpdates" to true. This is necessary as the API has changed and TimeKex needs to know about this to work correctly.
+
+## Authentification
+
+TimeKex is using the Kimai API to authenticate users. The user needs to enter the username and password to authenticate. In case you are using Kimai with login tokens, you need to set the configuration "loginToken" to true. This will change the authentication process to use the login token instead of the username and password.
 
 ## CORS
 

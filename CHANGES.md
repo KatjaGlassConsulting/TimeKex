@@ -1,5 +1,10 @@
 # Changes
 
+## 1.0.20
+
+- support of login tokens instead of username / password
+- new configuration "loginToken" : false - set it to true in case of using login tokens instead of username and password
+
 ## 1.0.19
 
 - support for API changes on ApprovalBundle (Version 2.2 and up) for Kimai 2

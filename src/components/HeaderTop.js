@@ -41,6 +41,7 @@ function HeaderTop(props) {
         dispatch(resetApproval())
         dispatch(resetOvertime())
         localStorage.removeItem("User");
+        localStorage.removeItem("token");
         
     }
 

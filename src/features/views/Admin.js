@@ -14,7 +14,8 @@ function Admin () {
     const config = useSelector((state) => state.config);
     const kimaiGeneralStatusError = useSelector((state) => state.kimaiData.error);    
 
-    if (!(config.username && config.password) ||
+
+    if (!((config.username && config.password) || (config.loginToken === true && config.token)) ||
         (kimaiGeneralStatusError && kimaiGeneralStatusError === "Invalid credentials")) {
         return <Redirect to={{
             pathname: '/login',

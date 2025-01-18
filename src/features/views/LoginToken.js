@@ -5,15 +5,14 @@ import { Grid, Segment, Icon, Input, Button } from 'semantic-ui-react'
 import { useState } from 'react'
 
 import ModalIssueNotify from '../../components/ModalIssueNotify'
-import { globalConfigSet } from '../../features/globalConfig/globalConfigSlice'
-import { reset as resetKimaiSlice } from '../../features/kimaiDB/kimaiSlice'
+import { globalConfigSet } from '../globalConfig/globalConfigSlice'
+import { reset as resetKimaiSlice } from '../kimaiDB/kimaiSlice'
 
 import 'semantic-ui-css/semantic.min.css'
 import '../../css/globals.css'
 
-function Login(props) {
-    const [user, setUser] = useState('')
-    const [password, setPassword] = useState('')
+function LoginToken(props) {
+    const [token, setToken] = useState('')
     const dispatch = useDispatch()
 
     const config = useSelector((state) => state.config)
@@ -21,38 +20,28 @@ function Login(props) {
         (state) => state.kimaiData.error
     )
 
-    if (config.loginToken){
-        return <Redirect to="/loginToken" />
-    }
-
     if (
-        config.username &&
-        config.password &&
+        config.token &&
         (kimaiGeneralStatusError === null ||
             kimaiGeneralStatusError !== 'Invalid credentials')
     ) {
         return <Redirect to="/" />
     }
 
-    const handleUserChange = (event) => {
-        setUser(event.target.value)
-    }
-
-    const handlePWChange = (event) => {
-        setPassword(event.target.value)
+    const handleTokenChange = (event) => {
+        setToken(event.target.value)
     }
 
     const handleLoginSubmit = () => {
         dispatch(
             globalConfigSet({
                 ...config,
-                username: user.trim(),
-                password: password.trim(),
+                token: token.trim(),
             })
         )
         localStorage.setItem(
-            'User',
-            JSON.stringify({ user: user.trim(), password: password.trim() })
+            'token',
+            JSON.stringify({ token: token.trim() })
         )
         if (props.location?.state?.from) {
             props.history.push(props.location.state.from)
@@ -69,11 +58,13 @@ function Login(props) {
 
     const handleModalCloseClick = () => {
         dispatch(resetKimaiSlice())
-        dispatch(globalConfigSet({ ...config, username: null, password: null }))
+        dispatch(globalConfigSet({ ...config, token: null }))
     }
 
     const invalidCredentialIssues =
         kimaiGeneralStatusError === 'Invalid credentials' ? true : false
+
+    console.log("invalidCredentialIssues: ", invalidCredentialIssues)
 
     return (
         <div className="nearCenterScreen">
@@ -93,23 +84,11 @@ function Login(props) {
                                 <tr>
                                     <td>
                                         <Input
-                                            id="user"
-                                            placeholder="Username"
+                                            id="token"
+                                            placeholder="API Token"
                                             fluid
-                                            value={user}
-                                            onChange={handleUserChange}
-                                        />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <Input
-                                            id="password"
-                                            placeholder="API Password"
-                                            type="password"
-                                            fluid
-                                            value={password}
-                                            onChange={handlePWChange}
+                                            value={token}
+                                            onChange={handleTokenChange}
                                             onKeyDown={keyPress}
                                         />
                                     </td>
@@ -133,4 +112,4 @@ function Login(props) {
     )
 }
 
-export default Login
+export default LoginToken
