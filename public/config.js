@@ -5,5 +5,6 @@ var config = {
     "approval" : false,
     "overtime" : false,
     "summary15mins" : false,
-    "breakChecks" : false
+    "breakChecks" : false,
+    "bundleApiUpdates" : false,
 }

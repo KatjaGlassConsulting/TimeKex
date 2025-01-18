@@ -1,5 +1,10 @@
 # Changes
 
+## 1.0.19
+
+- support for API changes on ApprovalBundle (Version 2.2 and up) for Kimai 2
+- new configuration "bundleApiUpdates" : false - set it to true in case of using the ApprovalBundle 2.2 and up
+
 ## 1.0.18
 
 - enhance documentation and test data

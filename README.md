@@ -33,6 +33,10 @@ The current released version of TimeKex is 1.0.18 and is running under Kimai2 Ve
 
 Remark: The Kimai ApprovalBundle Plugin is supporting Kimai2 Version 1 and 2 - please read the corresponding readme for additional information.
 
+## ApprovalBundle version 2.2 and up
+
+In case the ApprovalBundle is used in version 2.2 and up, you need to set the configuration "bundleApiUpdates" to true. This is necessary as the API has changed and TimeKex needs to know about this to work correctly.
+
 ## CORS
 
 It is meant to run TimeKex on the same server as Kimai, then you will not have issues with CORS. You could for example put the build folder in a folder "timeKex" under your kimai public folder. If you run it on different servers, make sure to enable CORS from what ever URL you have.

@@ -13,9 +13,14 @@ const initialState = {
 export const loadAll = createAsyncThunk('approval/loadAll', async ({weeks, config}) => {
     var result = {};
 
+    let apiPrefix = '';
+    if (config.bundleApiUpdates){
+        apiPrefix = "approval-bundle/";        
+    }
+
     // Get week-status for all available weeks
     for (let index = 0; index < weeks.length; index++) {
-        const response = await kimaiClient('week-status?date=' + weeks[index].weekStartDay, config);
+        const response = await kimaiClient(apiPrefix + 'week-status?date=' + weeks[index].weekStartDay, config);
         result[weeks[index].weekStartDay] = response;    
     }
 
@@ -23,7 +28,11 @@ export const loadAll = createAsyncThunk('approval/loadAll', async ({weeks, confi
 })
 
 export const submitToApproval = createAsyncThunk('approval/submitToApproval', async ({week, config, userID}) => {
-    const response = await kimaiClientPostGeneric('add_to_approve?date=' + week, config, {}, "POST");
+    let apiPrefix = '';
+    if (config.bundleApiUpdates){
+        apiPrefix = "approval-bundle/";
+    }
+    const response = await kimaiClientPostGeneric(apiPrefix + 'add_to_approve?date=' + week, config, {}, "POST");
     if (response.code && response.code !== 200) {
         console.log(response);
         const customError = {
@@ -32,7 +41,8 @@ export const submitToApproval = createAsyncThunk('approval/submitToApproval', as
         };
         throw customError;
     }
-    const nextApprovalWeek = await kimaiClient('next-week', config);
+
+    const nextApprovalWeek = await kimaiClient(apiPrefix + 'next-week', config);
     return {weekStartDay:week, result: response, nextApprovalWeek: nextApprovalWeek}
 })
 

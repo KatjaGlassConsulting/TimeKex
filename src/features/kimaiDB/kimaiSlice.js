@@ -19,7 +19,11 @@ const initialState = kimaiDBAdapter.getInitialState({
 })
 
 export const fetchAllData = createAsyncThunk('kimaiData/fetchAllData', async (config) => {
-    
+    let apiPrefix = '';
+    if (config.bundleApiUpdates){
+        apiPrefix = "approval-bundle/";        
+    }
+
     var result = {};
     const responseUserID = await kimaiClient('users/me', config);
     result.userId = responseUserID.id;
@@ -32,7 +36,7 @@ export const fetchAllData = createAsyncThunk('kimaiData/fetchAllData', async (co
         throw customError;
     }
 
-    const nextApprovalWeek = await kimaiClient('next-week', config);
+    const nextApprovalWeek = await kimaiClient(apiPrefix + 'next-week', config);
     if (nextApprovalWeek && nextApprovalWeek.length > 4 && !isNaN(nextApprovalWeek.substring(0, 4))){
         result.nextApprovalWeek = nextApprovalWeek;
     }

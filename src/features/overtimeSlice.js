@@ -9,8 +9,13 @@ const initialState = {
 export const loadOvertimeWeek = createAsyncThunk('approval/loadWeek', async ({week, config}) => {
     var result = {};
 
+    let apiPrefix = '';
+    if (config.bundleApiUpdates){
+        apiPrefix = "approval-bundle/";
+    }
+
     // Get overtimeStatus for week
-    const response = await kimaiClient('overtime_year?date=' + week.weekEndDay, config);
+    const response = await kimaiClient(apiPrefix + 'overtime_year?date=' + week.weekEndDay, config);
     
     if (typeof response === "object"){
         result[week.weekStartDay] = response;
