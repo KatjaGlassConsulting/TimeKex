@@ -4,6 +4,7 @@
 
 - new configuration to adjust layout for sponsors (logoMenuSmall, logoMenuLarge, logoURL, colorHeader)
 - provide additional configuration examples including all options (TimeKex_configOptions.js)
+- update package to get rid of vulnerability in prod dependency
 
 ## 1.0.20
 
