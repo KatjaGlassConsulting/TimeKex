@@ -3,3 +3,4 @@ build
 developerNotes.md
 docs/app
 site
+public/config_private.js

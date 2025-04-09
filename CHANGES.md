@@ -1,5 +1,10 @@
 # Changes
 
+## 1.0.21
+
+- new configuration to adjust layout for sponsors (logoMenuSmall, logoMenuLarge, logoURL, colorHeader)
+- provide additional configuration examples including all options (TimeKex_configOptions.js)
+
 ## 1.0.20
 
 - support of login tokens instead of username / password
