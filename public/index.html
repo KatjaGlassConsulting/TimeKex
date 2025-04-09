@@ -43,7 +43,12 @@
 </body>
 
 <script>
-    window.RenderApp(config);
+    //window.RenderApp(config);
+    if (window.config && typeof window.RenderApp === 'function') {
+        window.RenderApp(window.config);
+    } else {
+        console.error('Wait till everything is loaded - if the app is not loading, the config might be missing.');
+    }
 </script>
 
 </html>

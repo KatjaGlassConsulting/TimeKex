@@ -51,7 +51,7 @@ function HeaderTop(props) {
 
     const handleSmallMenuEnlargeToggle = () => {
         setSmallMenuEnlarge(!smallMenuEnlarge)
-    }
+    }   
 
     const menu = (
         <Menu.Menu position="left" className="menu_items_group">
@@ -101,15 +101,34 @@ function HeaderTop(props) {
         </Menu.Menu>
     )
 
+    const renderLogo = (small) => {
+        const link = config.logoURL ? config.logoURL : "https://katjaglassconsulting.github.io/TimeKex/"
+        if (small){
+            const logo = config.logoMenuSmall ? config.logoMenuSmall : './images/fischlogo_02_black_small.png'
+            return (
+                <a href={link} rel="noopener noreferrer" target="_blank">
+                    <img src={'./images/' + logo} alt="Logo" style={{ height: "60px" }}/>
+                </a>
+            )
+        } else {
+            const logo = config.logoMenuLarge ? config.logoMenuLarge : './images/fischlogo_02_black_small.png'
+            return (                
+                <a href={link} rel="noopener noreferrer" target="_blank">
+                    <img src={'./images/' + logo} alt="Logo" style={{ height: "60px" }} className="padding_left_right"/>
+                </a>
+            )
+        }
+    }
+
     const renderSmallMenu = () => {
         const head = (
             <div className="ui container fluid" align="left">
                 <table align="center">
                     <tbody>
                         <tr>
-                            <td valign="middle"><a href="https://www.glacon.eu" rel="noopener noreferrer" target="_blank">
-                                <img src='./images/fischlogo_02_black_small.png' alt="Logo" style={{ height: "60px" }}/>
-                            </a></td>
+                            <td valign="middle">
+                                {renderLogo(true)}
+                            </td>
                             <td></td>
                             <td valign="middle">
                                 <Icon
@@ -131,7 +150,7 @@ function HeaderTop(props) {
                 <div className="hideContentOnLargeWidth">
                     {head}
                     <hr />
-                    <div className="color_medium_light">
+                    <div style={{ backgroundColor: config.colorHeader ? config.colorHeader : '#00a2aa' }}>
                         <div className="ui container float" align="left">
                             <Menu inverted secondary fluid vertical>
                                 {menu}
@@ -146,9 +165,9 @@ function HeaderTop(props) {
     const renderLargeMenu = () => {
         return (
             <Menu inverted secondary className="hideContentOnSmallWidth">
-                <div className="ui"><a href="https://www.glacon.eu" rel="noopener noreferrer" target="_blank">
-                        <img src='./images/fischlogo_02_black_small.png' alt="Logo" style={{ height: "60px" }} className="padding_left_right"/>
-                    </a></div>
+                <div className="ui">
+                    {renderLogo(false)}
+                </div>
                 {menu}
                 {userMenu}
             </Menu>
@@ -156,7 +175,7 @@ function HeaderTop(props) {
     }
 
     return (
-        <div className="padding_top_bottom color_medium_light">
+        <div className="padding_top_bottom" style={{ backgroundColor: config.colorHeader ? config.colorHeader : '#00a2aa' }}>
             {width >= 1000 && renderLargeMenu()}
             {width < 1000 && renderSmallMenu()}
         </div>
