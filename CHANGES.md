@@ -1,5 +1,9 @@
 # Changes
 
+## 1.0.22
+
+- update packages used
+
 ## 1.0.21
 
 - new configuration to adjust layout for sponsors (logoMenuSmall, logoMenuLarge, logoURL, colorHeader)
