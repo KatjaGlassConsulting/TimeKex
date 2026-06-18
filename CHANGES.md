@@ -1,8 +1,12 @@
 # Changes
 
+## 1.0.23
+
+- update dev packages
+
 ## 1.0.22
 
-- update packages used
+- update packages - no prod vulnerabilities
 
 ## 1.0.21
 

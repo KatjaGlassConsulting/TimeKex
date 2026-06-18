@@ -21,6 +21,14 @@
         "react-scripts": "^5.0.1",
         "xhr2": "^0.2.1"
     },
+    "overrides": {
+        "nth-check": ">=2.1.1",
+        "postcss": ">=8.4.31",
+        "serialize-javascript": ">=6.0.2",
+        "js-yaml": ">=4.1.0",
+        "underscore": ">=1.13.7",
+        "uuid": ">=9.0.1"
+    },
     "scripts": {
         "preinstall": "npx npm-force-resolutions",
         "start": "react-scripts start",
