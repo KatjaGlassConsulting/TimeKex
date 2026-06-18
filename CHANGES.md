@@ -1,5 +1,13 @@
 # Changes
 
+## 1.0.23
+
+- update dev packages
+
+## 1.0.22
+
+- update packages - no prod vulnerabilities
+
 ## 1.0.21
 
 - new configuration to adjust layout for sponsors (logoMenuSmall, logoMenuLarge, logoURL, colorHeader)
